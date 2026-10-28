@@ -378,7 +378,7 @@ mod tests {
     fn every_key_has_help() {
         let mut config = Config::default();
         for (key, help) in KEYS {
-            assert!(!help.is_empty());
+            assert_ne!(*help, "");
             assert!(
                 !config
                     .set(key, "?")
