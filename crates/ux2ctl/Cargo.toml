@@ -1,0 +1,22 @@
+[package]
+name = "ux2ctl"
+description = "Control and meter daemon for the Line 6 POD Studio UX2's front panel"
+readme = "../../README.md"
+keywords = ["line6", "ux2", "usb", "vu-meter", "audio"]
+categories = ["command-line-utilities", "hardware-support"]
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+
+[dependencies]
+ux2-panel.workspace = true
+basic-toml = "0.1.10"
+clap = { version = "4.6.7", features = ["derive"] }
+serde = { version = "1.0.229", features = ["derive"] }
+signal-hook = "0.4.5"
+
+[lints]
+workspace = true
