@@ -54,6 +54,13 @@ enum Command {
     },
     /// Put both needles at rest and both lamps out.
     Rest,
+    /// Show which inputs the UX2 records, or choose them: `instrument`,
+    /// `mic`, `line`, or `instrument+mic` for the instrument on channel 1
+    /// and a microphone on channel 2 at once.
+    Input {
+        /// The inputs to record; without it, the ones it records now.
+        source: Option<ux2_panel::InputSource>,
+    },
     /// Sweep the needles and the lamps once, to see that the panel works.
     Sweep,
     /// Drive the needles from levels in dBFS on stdin or a Unix socket.
@@ -191,6 +198,14 @@ fn run(cli: Cli) -> Result<ExitCode, String> {
             }
         }
         Command::Rest => open()?.rest().map_err(|error| error.to_string())?,
+        Command::Input { source } => {
+            let card = ux2_panel::input::card().ok_or("no UX2 sound card is in ALSA")?;
+            if let Some(source) = source {
+                ux2_panel::input::set_input(card, source).map_err(|error| error.to_string())?;
+            }
+            let now = ux2_panel::input::input(card).map_err(|error| error.to_string())?;
+            println!("{card} records {now}: {}", now.channels());
+        }
         Command::Sweep => {
             let mut panel = open()?;
             let stop = signals()?.0;

@@ -16,6 +16,9 @@
 //!   moves: up at once, back down at a steady pace, the clip lamp held.
 //! - [`Routing`] picks the channels each needle shows and combines them.
 //! - [`feed`] reads the text level feed that `ux2ctl meter` listens to.
+//! - [`input`] chooses which inputs the UX2 records, and on which
+//!   channels: the instrument and a microphone can come in at once, each
+//!   on its own channel.
 //!
 //! ```no_run
 //! use std::time::Duration;
@@ -35,6 +38,7 @@
 mod ballistics;
 mod curve;
 pub mod feed;
+pub mod input;
 mod panel;
 mod protocol;
 mod reconnect;
@@ -42,6 +46,7 @@ mod routing;
 
 pub use ballistics::{Ballistics, BallisticsSettings, Levels, NeedleLevel};
 pub use curve::{SILENCE, dbfs, needle};
+pub use input::InputSource;
 pub use panel::{Error, Found, Panel, find};
 pub use protocol::{
     CLIP_LAMPS, Clip, Command, FULL_SCALE, NEEDLES, PRODUCT_IDS, REQUEST, REQUEST_TYPE, Reading,

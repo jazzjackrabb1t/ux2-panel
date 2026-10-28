@@ -54,6 +54,35 @@ face:
 needle = 49.28 · 10^(dB/20) + 1.252 · dB + 87.59     clamped to 0..=140, 0 below -67 dBFS
 ```
 
+## Inputs: what the UX2 records, and on which channels
+
+The UX2 can record the instrument, the microphones, the line inputs, or
+the instrument and a microphone at once, each on its own channel. The
+kernel's driver offers the choice as the card's `PCM Capture Source`
+control but nothing on Linux shows it; `ux2ctl input` does:
+
+```sh
+ux2ctl input                  # what it records now
+ux2ctl input instrument       # the instrument on channels 1 and 2
+ux2ctl input mic              # the microphones on channels 1 and 2
+ux2ctl input line             # line left on channel 1, right on channel 2
+ux2ctl input instrument+mic   # the instrument on 1, a microphone on 2
+```
+
+The choice goes through the kernel's own control (with `amixer`), so the
+kernel keeps it and sends it again after a suspend.
+
+| Input | ALSA item | Vendor request value |
+|---|---|---|
+| Microphone | 0 | `0x0a01` |
+| Line | 1 | `0x0801` |
+| Instrument | 2 | `0x0b01` |
+| Instrument and mic | 3 | `0x0901` |
+
+Values from `0x0c01` to `0x1001` were tried on a POD Studio UX2: each left
+both input channels silent. If you find another pairing the UX2 can
+record, please open an issue with what you plugged where.
+
 ## Install
 
 You need a Rust toolchain (stable) to build.
