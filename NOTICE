@@ -1,0 +1,9 @@
+ux2-panel
+Copyright 2026 The ux2-panel Authors
+
+This product is licensed under the Apache License, Version 2.0.
+
+The needle curve, value = 49.28 * 10^(dB/20) + 1.252 * dB + 87.59, and the
+first public description of the panel's USB commands come from UX2-VU-util
+by Leocraft1 (https://github.com/Leocraft1/UX2-VU-util, MIT licence). No code
+from it is included here.

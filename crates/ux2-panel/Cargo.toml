@@ -1,0 +1,18 @@
+[package]
+name = "ux2-panel"
+description = "Drive the needles and clip lamps of the Line 6 POD Studio UX2 from Linux userspace"
+readme = "../../README.md"
+keywords = ["line6", "ux2", "usb", "vu-meter", "audio"]
+categories = ["hardware-support", "multimedia::audio"]
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+
+[dependencies]
+nusb = "0.2.9"
+
+[lints]
+workspace = true
