@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: Apache-2.0
+# ux2-panel: the Line 6 UX2's needles, driven by levels that any program
+# writes to /run/ux2-panel/meter.sock (see the README).
+[Unit]
+Description=Line 6 UX2 front panel meter
+Documentation=https://github.com/jazzjackrabb1t/ux2-panel
+After=systemd-udevd.service
+
+[Service]
+Type=simple
+User=ux2-panel
+Group=audio
+ExecStart=/usr/local/bin/ux2ctl meter --socket /run/ux2-panel/meter.sock
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=2
+RuntimeDirectory=ux2-panel
+RuntimeDirectoryMode=0750
+UMask=0007
+
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictAddressFamilies=AF_UNIX AF_NETLINK
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+DevicePolicy=closed
+DeviceAllow=char-usb_device rw
+
+[Install]
+WantedBy=multi-user.target

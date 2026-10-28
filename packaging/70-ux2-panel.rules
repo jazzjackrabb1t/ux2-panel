@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# ux2-panel: lets group audio drive the Line 6 POD Studio UX2's needles and
+# clip lamps. They take a vendor request on the control endpoint, beside the
+# kernel's snd-usb-toneport, so only the device file needs to be writable.
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="0e41", ATTR{idProduct}=="4151|4142", GROUP="audio", MODE="0660"

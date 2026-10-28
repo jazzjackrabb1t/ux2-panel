@@ -1,0 +1,30 @@
+# ux2-panel: the Line 6 UX2's needles and clip lamps, as `ux2ctl meter` drives them.
+# Change with `ux2ctl config set KEY VALUE` or `ux2ctl route`, then
+# `systemctl reload ux2-panel`.
+
+# how fast a needle falls back, in dB a second (VU: 26)
+fall_rate = 26.0
+# how long a clip lamp stays lit after clipping, in seconds
+clip_hold = 0.7
+# the level in dBFS at or above which a channel clips
+clip_threshold = -0.2
+# sweep the needles when the meter starts or the UX2 is plugged in: true or false
+startup_sweep = true
+# whether the needles move at all: false keeps the panel still
+needles = true
+
+[left]
+# what the left needle shows: input, output or off
+source = "input"
+# which channels feed the left needle: 1, 2 or 1,2
+channels = [1, 2]
+# how several channels make the left needle's level: max, rms or sum
+combine = "max"
+
+[right]
+# what the right needle shows: input, output or off
+source = "output"
+# which channels feed the right needle: 1, 2 or 1,2
+channels = [1, 2]
+# how several channels make the right needle's level: max, rms or sum
+combine = "max"
